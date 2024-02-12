@@ -21,7 +21,7 @@ def build-all [build_options: list<string>] {
 
             let options =  ["build", "-o",  $binary_path] ++ $build_options
 
-            run-external go $options
+            run-external go ...$options
             print $"built ($binary_path)"
         }
     }
