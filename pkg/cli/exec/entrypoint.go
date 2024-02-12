@@ -1,9 +1,8 @@
 package exec
 
 import (
+	"fmt"
 	"os"
-
-	"github.com/rs/zerolog/log"
 
 	"github.com/restechnica/nuke/pkg/cli/commands"
 )
@@ -13,7 +12,7 @@ func Run() (err error) {
 	var root = commands.NewRootCommand()
 
 	if err = root.Run(os.Args); err != nil {
-		log.Error().Err(err).Msg("")
+		fmt.Println(err)
 		os.Exit(1)
 	}
 
