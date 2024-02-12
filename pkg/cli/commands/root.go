@@ -3,9 +3,12 @@ package commands
 import (
 	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"github.com/urfave/cli/v2"
+
+	"github.com/restechnica/nuke/pkg/core"
 )
 
 func init() {
@@ -31,17 +34,27 @@ func NewRootCommand() *cli.App {
 // Returns an error if it failed.
 func RootCommandAction(context *cli.Context) (err error) {
 	log.Debug().Str("command", "root").Msg("starting run...")
-	return err
+
+	var options = &core.NukeOptions{Args: context.Args().Slice()}
+
+	return core.Nuke(options)
 }
 
 // RootCommandBefore runs before the command and any subcommand runs.
 // Returns an error if it failed.
 func RootCommandBefore(context *cli.Context) (err error) {
+	ConfigureEnvironmentVariables()
 	ConfigureLogging()
-
-	log.Debug().Str("command", "root").Msg("starting pre-run...")
-
 	return err
+}
+
+func ConfigureEnvironmentVariables() {
+	_ = godotenv.Load()
+
+	// TODO read env var file based on env vars? multiple?
+	// log.Info().Str("path", "dev.env").Msg("reading env vars...")
+
+	return
 }
 
 func ConfigureLogging() {
