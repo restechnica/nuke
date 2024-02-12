@@ -7,6 +7,7 @@ on:
 env:
   GO_VERSION: 1.21
   NUSHELL_VERSION: 0.88.0
+  SBOT_VERSION: 1.6.2
 
 jobs:
   build:
@@ -31,6 +32,15 @@ jobs:
           mkdir bin
           echo "$(pwd)/bin" >> $GITHUB_PATH
 
+      - name: install sbot
+        run: |
+          curl -o bin/sbot -L https://github.com/restechnica/semverbot/releases/download/v$SBOT_VERSION/sbot-linux-amd64
+          chmod +x bin/sbot
+
+      - name: update version
+        run: |
+          sbot update version --verbose
+
       - name: provision
         run: make provision
 
@@ -44,16 +54,15 @@ jobs:
         run: |
           nu run.nu build
           nuke version
-          nuke update version --debug
 
       - name: build
         run: |
-          nu run.nu build --all --version "$(nuke predict version --debug)"
+          nu run.nu build --all --version "$(nuke predict version --verbose)"
           cp bin/nuke-linux-amd64 bin/nuke
           nuke version
 
       - name: release
         run: |
-          nuke update version --debug
-          nuke release version --debug
-          nuke push version --debug
+          sbot update version --verbose
+          sbot release version --verbose
+          sbot push version --verbose
