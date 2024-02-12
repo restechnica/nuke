@@ -52,11 +52,11 @@ jobs:
 
       - name: build prerelease
         run: |
-          nu run.nu build
+          nu make.nu build
           nuke version
 
       - name: build
         run: |
-          nu run.nu build --all --version "$(sbot predict version --debug)"
+          nu make.nu build --all --version "$(sbot predict version --debug)"
           cp bin/nuke-linux-amd64 bin/nuke
           nuke version
