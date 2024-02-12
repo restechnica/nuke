@@ -1,0 +1,59 @@
+name: main
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  GO_VERSION: 1.21
+  NUSHELL_VERSION: 0.88.0
+
+jobs:
+  build:
+    name: pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: set up go
+        uses: actions/setup-go@v5
+        with:
+          cache-dependency-path: go.sum
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: set up nushell
+        uses: hustcer/setup-nu@v3.8
+        with:
+          version: ${{ env.NUSHELL_VERSION }}
+
+      - name: set up path
+        run: |
+          mkdir bin
+          echo "$(pwd)/bin" >> $GITHUB_PATH
+
+      - name: provision
+        run: make provision
+
+      - name: check
+        run: make check
+
+      - name: test
+        run: make test
+
+      - name: build prerelease
+        run: |
+          nu run.nu build
+          nuke version
+          nuke update version --debug
+
+      - name: build
+        run: |
+          nu run.nu build --all --version "$(nuke predict version --debug)"
+          cp bin/nuke-linux-amd64 bin/nuke
+          nuke version
+
+      - name: release
+        run: |
+          nuke update version --debug
+          nuke release version --debug
+          nuke push version --debug
