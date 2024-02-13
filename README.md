@@ -10,50 +10,12 @@ A modern task runner experience for Nushell.
 
 ## Table of Contents
 
+* [Usage](#usage)
 * [Requirements](#requirements)
 * [How to install](#how-to-install)
   * [Github](#github)
   * [Homebrew](#homebrew)
-* [Usage](#usage)
 * [How to configure](#how-to-configure)
-  
-## Requirements
-
-`nuke` requires a [`nu`](https://www.nushell.sh/) installation.
-
-## How to install
-
-`nuke` can be retrieved from GitHub or a Homebrew tap. Run `nuke version` to validate the installation.
-The tool is available for Windows, Linux and macOS.
-
-### github
-
-`nuke` is available through GitHub. The following example works for a GitHub Workflow, other CI/CD tooling will require a different path setup.
-
-```shell
-NUKE_VERSION=0.1.0
-mkdir bin
-echo "$(pwd)/bin" >> $GITHUB_PATH
-curl -o bin/nuke -L https://github.com/restechnica/nuke/releases/download/v$NUKE_VERSION/nuke-linux-amd64
-chmod +x bin/nuke
-```
-
-### homebrew
-
-`nuke` is available through the public tap [github.com/restechnica/homebrew-tap](https://github.com/restechnica/homebrew-tap)
-
-```shell
-brew tap restechnica/tap git@github.com:restechnica/homebrew-tap.git
-brew install restechnica/tap/nuke
-```
-
-### golang
-
-`nuke` is written in golang, which means you can use `go install`. Make sure the installation folder, which depends on your golang setup, is in your system PATH.
-
-```shell
-go install github.com/restechnica/nuke/cmd/nuke@v0.1.0
-```
 
 ## Usage
 
@@ -91,3 +53,41 @@ Supported default script names:
 - `nukefile.nu`
 - `Nukefile`
 - `Nukefile.nu`
+
+## Requirements
+
+`nuke` requires a [`nu`](https://www.nushell.sh/) installation.
+
+## How to install
+
+`nuke` can be retrieved from GitHub or a Homebrew tap. Run `nuke version` to validate the installation.
+The tool is available for Windows, Linux and macOS.
+
+### github
+
+`nuke` is available through GitHub. The following example works for a GitHub Workflow, other CI/CD tooling will require a different path setup.
+
+```shell
+NUKE_VERSION=0.1.0
+mkdir bin
+echo "$(pwd)/bin" >> $GITHUB_PATH
+curl -o bin/nuke -L https://github.com/restechnica/nuke/releases/download/v$NUKE_VERSION/nuke-linux-amd64
+chmod +x bin/nuke
+```
+
+### homebrew
+
+`nuke` is available through the public tap [github.com/restechnica/homebrew-tap](https://github.com/restechnica/homebrew-tap)
+
+```shell
+brew tap restechnica/tap git@github.com:restechnica/homebrew-tap.git
+brew install restechnica/tap/nuke
+```
+
+### golang
+
+`nuke` is written in golang, which means you can use `go install`. Make sure the installation folder, which depends on your golang setup, is in your system PATH.
+
+```shell
+go install github.com/restechnica/nuke/cmd/nuke@v0.1.0
+```
