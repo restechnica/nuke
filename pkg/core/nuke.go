@@ -48,7 +48,9 @@ func Nuke(options *NukeOptions) (err error) {
 		return errors.New("no nukefiles found")
 	}
 
-	os.Chdir(filepath.Dir(scriptPath))
+	if err = os.Chdir(filepath.Dir(scriptPath)); err != nil {
+		return err
+	}
 
 	options.Args = append([]string{scriptPath}, options.Args...)
 
