@@ -10,12 +10,19 @@ A modern task runner experience for Nushell.
 
 ## Table of Contents
 
+* [Features](#features)
 * [Usage](#usage)
 * [Requirements](#requirements)
 * [How to install](#how-to-install)
   * [Github](#github)
   * [Homebrew](#homebrew)
 * [How to configure](#how-to-configure)
+
+## Features
+
+- run commands from any subdirectory
+- a set of default script names
+- `.env` support
 
 ## Usage
 
@@ -32,27 +39,6 @@ Initially environment variables are loaded from a `.env` file.
 ### `nuke version`
 
 prints `nuke` version information.
-
-## How to configure
-
-`nuke` supports a set of default `nu` script names and environment variables. It currently does not support a config file.
-
-### Environment variables
-
-- `NUKE_LOG_LEVEL`: sets the `nuke` log level, `DEBUG` and `INFO` are supported.
-
-### Default script names
-
-Supported default script names:
-
-- `main.nu`
-- `nuke.nu`
-- `make.nu`
-- `tasks.nu`
-- `nukefile`
-- `nukefile.nu`
-- `Nukefile`
-- `Nukefile.nu`
 
 ## Requirements
 
@@ -91,3 +77,24 @@ brew install restechnica/tap/nuke
 ```shell
 go install github.com/restechnica/nuke/cmd/nuke@v0.1.0
 ```
+
+## How to configure
+
+`nuke` supports a set of default `nu` script names and environment variables. It currently does not support a config file.
+
+### Environment variables
+
+- `NUKE_LOG_LEVEL`: sets the `nuke` log level, `DEBUG` and `INFO` are supported.
+
+### Script names
+
+Supported default script names:
+
+- `main.nu`
+- `nuke.nu`
+- `make.nu`
+- `tasks.nu`
+- `nukefile`
+- `nukefile.nu`
+- `Nukefile`
+- `Nukefile.nu`
