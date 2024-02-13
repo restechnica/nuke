@@ -6,7 +6,7 @@ on:
 
 env:
   GO_VERSION: 1.21
-  NUSHELL_VERSION: 0.88.0
+  NUSHELL_VERSION: 0.89.0
   SBOT_VERSION: 1.6.2
 
 jobs:
@@ -52,11 +52,11 @@ jobs:
 
       - name: build prerelease
         run: |
-          nu make.nu build
+          nu main.nu build
           nuke version
 
       - name: build
         run: |
-          nu make.nu build --all --version "$(sbot predict version --debug)"
+          nu main.nu build --all --version "$(sbot predict version --debug)"
           cp bin/nuke-linux-amd64 bin/nuke
           nuke version
